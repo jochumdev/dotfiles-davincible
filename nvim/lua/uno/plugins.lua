@@ -1,12 +1,12 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+-- local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
-if fn.empty(fn.glob(install_path)) > 0 then
-	fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-	execute("packadd packer.nvim")
-end
+-- if fn.empty(fn.glob(install_path)) > 0 then
+-- 	fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+execute("packadd packer.nvim")
+-- end
 
 return require("packer").startup(function()
 	-- Packer can manage itself
@@ -20,7 +20,7 @@ return require("packer").startup(function()
 	use("nathom/filetype.nvim")
 
 	-- Telescope
-	use("folke/trouble.nvim")
+	use({"folke/trouble.nvim"})
 	use("nvim-lua/popup.nvim")
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use({
@@ -33,13 +33,14 @@ return require("packer").startup(function()
 		"nvim-telescope/telescope-dap.nvim",
 		"nvim-telescope/telescope-fzy-native.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
+		"cljoly/telescope-repo.nvim",
 	})
 
 	-- Theming
-	use("dylanaraps/wal.vim")
-	use("deviantfero/wpgtk.vim")
+--	use("dylanaraps/wal.vim")
+--	use("deviantfero/wpgtk.vim")
 	use("ryanoasis/vim-devicons")
-	use("rktjmp/lush.nvim")
+--	use("rktjmp/lush.nvim")
 	use("akinsho/nvim-bufferline.lua")
 	use("norcalli/nvim-colorizer.lua")
 	use("kyazdani42/nvim-web-devicons")
@@ -79,10 +80,14 @@ return require("packer").startup(function()
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 		requires = {
+			"JoosepAlviste/nvim-ts-context-commentstring",
 			"nvim-treesitter/nvim-treesitter-context",
 			"nvim-treesitter/playground",
 		},
 	})
+
+	use({"nvim-treesitter/nvim-treesitter-refactor"})
+
 
 	-- Golang
 	use({
@@ -158,16 +163,10 @@ return require("packer").startup(function()
 	})
 	use({ "mattn/emmet-vim" })
 	use({ "potatoesmaster/i3-vim-syntax" })
-	-- use {"airblade/vim-rooter"}
+  -- use({ "airblade/vim-rooter" })
 	use({ "mvllow/modes.nvim" }) -- Highlights current line based on mode
 	use({ "zegervdv/nrpattern.nvim", config = "require('nrpattern').setup()" })
 	use({ "kevinhwang91/nvim-bqf", ft = "qf" }) -- Nicer quickfix list
-	use({
-		"ahmedkhalf/project.nvim",
-		config = function()
-			require("project_nvim").setup()
-		end,
-	})
 	use("Pocco81/HighStr.nvim") -- Highlight lines
 
 	-- Git stuff
@@ -181,5 +180,25 @@ return require("packer").startup(function()
 
 	use({ "lewis6991/gitsigns.nvim" })
 
-	-- use 'dstein64/vim-startuptime'
+	-- Themes
+  -- use { "ellisonleao/gruvbox.nvim" }
+	use({ "folke/tokyonight.nvim" })
+	-- use({ "Shatur/neovim-session-manager" })
+
+  -- Workspaces+sessions
+	use({"natecraddock/workspaces.nvim"})
+  use({"natecraddock/sessions.nvim"})
+ 	-- use 'dstein64/vim-startuptime'
+
+  -- Refactoring
+	use({"ThePrimeagen/refactoring.nvim"})
+	use({
+    'ray-x/navigator.lua',
+    requires = {
+        { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
+        { 'neovim/nvim-lspconfig' },
+    },
+	})
+
+	use({"simrat39/symbols-outline.nvim"})
 end)

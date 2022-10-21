@@ -51,6 +51,26 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 
+	context_commentstring = {
+		enable = true,
+		config = {
+			go = "// %s",
+		},
+	},
+
+	refactor = {
+		smart_rename = {
+			enable = true,
+			keymaps = {
+				smart_rename = "rn",
+			},
+		},
+		highlight_definitions = {
+			enable = true,
+			clear_on_cursor_move = true,
+		},
+	},
+
 	textobjects = {
 		-- syntax-aware textobjects
 		enable = enable,

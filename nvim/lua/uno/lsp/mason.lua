@@ -74,7 +74,7 @@ require("mason-tool-installer").setup({
 		"gotests",
 		"impl",
 		"json-to-struct",
-		"luacheck",
+		-- "luacheck",
 		"misspell",
 		"revive",
 		"shellcheck",

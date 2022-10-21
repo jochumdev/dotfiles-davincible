@@ -3,7 +3,6 @@ local actions = require("telescope.actions")
 local my_pickers = require("uno.telescope-pickers")
 
 require("trouble").setup()
-local trouble = require("trouble.providers.telescope")
 
 local M = {}
 
@@ -54,7 +53,7 @@ telescope.setup({
 				["<C-c>"] = actions.close,
 				["<C-j>"] = actions.move_selection_next,
 				["<C-k>"] = actions.move_selection_previous,
-				["<c-t>"] = trouble.open_with_trouble,
+				["<c-b>"] = require("trouble.providers.telescope").open_with_trouble,
 				["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 				-- To disable a keymap, put [map] = false
 				-- So, to not map "<C-n>", just put
@@ -73,7 +72,7 @@ telescope.setup({
 			n = {
 				["<C-j>"] = actions.move_selection_next,
 				["<C-k>"] = actions.move_selection_previous,
-				["<c-t>"] = trouble.open_with_trouble,
+				["<c-b"] = require("trouble.providers.telescope").open_with_trouble,
 				["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 				-- ["<C-i>"] = my_cool_custom_action,
 			},
@@ -86,6 +85,15 @@ telescope.setup({
 		-- 	override_file_sorter = true, -- override the file sorter
 		-- 	case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 		-- },
+		repo = {
+			list = {
+				search_dirs = {
+					"~/dotfiles",
+					"~/Projekte",
+					"~/Software",
+				},
+			},
+		},
 		media_files = {
 			-- filetypes whitelist
 			-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
@@ -114,16 +122,18 @@ telescope.setup({
 	},
 })
 
-require("telescope").load_extension("fzy_native")
--- require("telescope").load_extension("fzf")
-require("telescope").load_extension("project")
-require("telescope").load_extension("projects") -- ahmedkhalf/project.nvim
-require("telescope").load_extension("media_files")
-require("telescope").load_extension("ui-select")
-require("telescope").load_extension("tmuxinator")
-require("telescope").load_extension("notify")
-require("telescope").load_extension("file_browser")
-require("telescope").load_extension("dap")
+telescope.load_extension("fzy_native")
+-- telescope.load_extension("fzf")
+-- telescope.load_extension("project")
+-- telescope.load_extension("projects") -- ahmedkhalf/project.nvim
+telescope.load_extension("media_files")
+telescope.load_extension("ui-select")
+telescope.load_extension("tmuxinator")
+telescope.load_extension("notify")
+telescope.load_extension("file_browser")
+telescope.load_extension("dap")
+telescope.load_extension("repo")
+telescope.load_extension("workspaces")
 
 -- Native
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { silent = true })
@@ -138,13 +148,13 @@ vim.keymap.set("n", "<leader>fs", require("telescope.builtin").symbols, { silent
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").git_status, { silent = true })
 
 -- Extensions
-vim.keymap.set("n", "<leader>fm", require("telescope").extensions.media_files.media_files, { silent = true })
-vim.keymap.set("n", "<leader>ft", require("telescope").extensions.file_browser.file_browser, { silent = true })
-vim.keymap.set("n", "<leader>fn", require("telescope").extensions.notify.notify, { silent = true })
-vim.keymap.set("n", "<leader>lb", require("telescope").extensions.dap.list_breakpoints, { silent = true })
-vim.keymap.set("n", "<leader>lv", require("telescope").extensions.dap.variables, { silent = true })
-vim.keymap.set("n", "<leader>lf", require("telescope").extensions.dap.frames, { silent = true })
-vim.keymap.set("n", "<leader>lc", require("telescope").extensions.dap.commands, { silent = true })
-vim.keymap.set("n", "<leader>ls", require("telescope").extensions.dap.configurations, { silent = true })
+vim.keymap.set("n", "<leader>fw", telescope.extensions.workspaces.workspaces, { silent = true })
+vim.keymap.set("n", "<leader>fm", telescope.extensions.media_files.media_files, { silent = true })
+vim.keymap.set("n", "<leader>lb", telescope.extensions.dap.list_breakpoints, { silent = true })
+vim.keymap.set("n", "<leader>fp", telescope.extensions.repo.list, { silent = true })
+vim.keymap.set("n", "<leader>lv", telescope.extensions.dap.variables, { silent = true })
+vim.keymap.set("n", "<leader>lf", telescope.extensions.dap.frames, { silent = true })
+vim.keymap.set("n", "<leader>lc", telescope.extensions.dap.commands, { silent = true })
+vim.keymap.set("n", "<leader>ls", telescope.extensions.dap.configurations, { silent = true })
 
 return M

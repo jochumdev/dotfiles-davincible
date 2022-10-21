@@ -5,7 +5,7 @@ require("bufferline").setup({
 		buffer_close_icon = "",
 		modified_icon = "",
 		close_icon = "",
-		close_command = "lua require('uno.myFuncs').closeBuffer()",
+		-- close_command = ".closeBuffer()",
 		left_trunc_marker = "",
 		right_trunc_marker = "",
 		max_name_length = 14,

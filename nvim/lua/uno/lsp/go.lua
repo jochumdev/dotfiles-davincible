@@ -1,7 +1,7 @@
 require("go").setup({
 	verbose = true,
 	gopls_cmd = {
-		"/usr/bin/gopls",
+		"gopls",
 		"-remote=auto",
 		"-listen.timeout=5m",
 --		"-logfile=" .. vim.fn.expand("~/.cache/nvim/gopls.log"),

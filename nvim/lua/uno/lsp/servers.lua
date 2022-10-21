@@ -21,7 +21,7 @@ require("mason-null-ls").setup({
 local servers = {
 	-- "ansiblels",
 	"bashls",
-	"buildifier",
+	-- "buildifier",
 	"cmake",
 	"cssls",
 	"denols",
@@ -32,7 +32,7 @@ local servers = {
 	"graphql",
 	"grammarly",
 	-- "remark_ls",
-	"zeta_note",
+	-- "zeta_note",
 	"html",
 	"jsonls",
 	"jdtls", -- java
@@ -59,7 +59,7 @@ local function common_on_attach(client, bufnr)
 	-- Mappings.
 	local snore = { noremap = true, silent = true }
 
-	buf_set_keymap("n", "gD", ":lua vim.lsp.buf.declaration()<CR>", snore)
+  buf_set_keymap("n", "gD", ":lua vim.lsp.buf.declaration()<CR>", snore)
 	buf_set_keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", snore)
 	-- buf_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
 	buf_set_keymap("n", "gi", ":lua vim.lsp.buf.implementation()<CR>", snore)
@@ -104,6 +104,7 @@ local default_lsp_opts = {
 	on_attach = common_on_attach,
 	-- Setup cmp for all servers
 	capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	-- capabilities = cmp_lsp.default_capabilities,
 }
 
 -- Setup LSP Servers
